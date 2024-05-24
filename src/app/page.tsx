@@ -24,8 +24,12 @@ export default function Home() {
                     <div className="h-full rounded-xl p-6 border-[1px] border-borcol bg-box min-h-[13rem]">
                         <h1 className="text-xl text-text-lighter font-metropolis-bold">Who am I?</h1>
                         <p className="text-text-color mt-2">
-                            I&apos;m a casual full stack developer that creates cool things in my free time using
-                            modern, efficient, and scalable technologies.
+                            I&apos;m currently a computer science major at Arizona State University. I like creating
+                            cool things in my free time using modern, efficient, and scalable technologies.
+                        </p>
+                        <p className="text-text-color mt-2">
+                            When I&apos;m not coding, you can catch me grabbing boba with friends, tinkering with my
+                            home server, or creating new random playlists.
                         </p>
                     </div>
                 </div>
