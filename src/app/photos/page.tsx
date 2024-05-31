@@ -1,0 +1,95 @@
+"use client";
+
+import Masonry from "react-masonry-css";
+import Image from "next/image";
+import useSWRImmutable from "swr/immutable";
+
+interface OnedriveItem {
+	"@microsoft.graph.downloadUrl": string;
+	"name": string;
+	"size": number;
+	"lastModifiedDateTime": string;
+	"file": {
+		mimeType: string;
+	};
+	"image": {
+		height: number;
+		width: number;
+	};
+}
+
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+interface OnedriveApiResponse {
+	status: number;
+	data: {
+		value: OnedriveItem[];
+	};
+}
+
+const breakpointColumnsObj = {
+	default: 4,
+	1200: 3,
+	700: 2,
+	375: 1,
+};
+
+export default function ProjectsPage() {
+	const { data, error } = useSWRImmutable<OnedriveApiResponse>(
+		"/api/photos/01NV5GJPTEVQP3Z732KJF2EWCKNROO7U7R",
+		fetcher
+	);
+
+	if (error) {
+		return (
+			<>
+				<div className="w-full text-center mt-24">
+					<h1 className="relative font-metropolis-bold text-text-lighter text-xl w-auto">
+						Failed to load pictures.
+					</h1>
+					<p className="text-text-color font-metropolis">Please retry later.</p>
+				</div>
+			</>
+		);
+	}
+
+	if (!data) return <div></div>;
+
+	if (data.status !== 200) {
+		return (
+			<>
+				<div className="w-full text-center mt-24">
+					<h1 className="relative font-metropolis-bold text-text-lighter text-xl w-auto">
+						Failed to load pictures.
+					</h1>
+					<p className="text-text-color font-metropolis">Please retry later.</p>
+				</div>
+			</>
+		);
+	}
+
+	// const images = data.data.value.filter(image => image.image.width > 0 && image.image.height > 0);
+	const images = data.data.value;
+
+	return (
+		<>
+			<Masonry
+				breakpointCols={breakpointColumnsObj}
+				className="flex w-full smd:ml-[-1.5rem] gap-6"
+				columnClassName="smd:pl-6 flex flex-col gap-6"
+			>
+				{images.map(image => (
+					<div key={image.name}>
+						<Image
+							alt={image.name}
+							src={image["@microsoft.graph.downloadUrl"]}
+							width={image.image.width}
+							height={image.image.height}
+							className="rounded-lg"
+						/>
+					</div>
+				))}
+			</Masonry>
+		</>
+	);
+}
