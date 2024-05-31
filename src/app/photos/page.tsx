@@ -82,7 +82,7 @@ export default function ProjectsPage() {
 					<h1 className="relative font-metropolis-bold text-text-lighter text-xl w-auto">
 						Loading pictures...
 					</h1>
-					<p className="text-text-color font-metropolis">They're cool. I swear.</p>
+					<p className="text-text-color font-metropolis">They&apos;re cool. I swear.</p>
 				</div>
 			</>
 		);
