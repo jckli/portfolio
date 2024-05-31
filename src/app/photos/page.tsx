@@ -16,6 +16,25 @@ interface OnedriveItem {
 		height: number;
 		width: number;
 	};
+	"thumbnails": OnedriveThumbnail[];
+}
+
+interface OnedriveThumbnail {
+	small: {
+		url: string;
+		width: number;
+		height: number;
+	};
+	medium: {
+		url: string;
+		width: number;
+		height: number;
+	};
+	large: {
+		url: string;
+		width: number;
+		height: number;
+	};
 }
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
@@ -37,7 +56,10 @@ const breakpointColumnsObj = {
 export default function ProjectsPage() {
 	const { data, error } = useSWRImmutable<OnedriveApiResponse>(
 		"/api/photos/01NV5GJPTEVQP3Z732KJF2EWCKNROO7U7R",
-		fetcher
+		fetcher,
+		{
+			revalidateOnFocus: false,
+		}
 	);
 
 	if (error) {
@@ -86,6 +108,8 @@ export default function ProjectsPage() {
 							width={image.image.width}
 							height={image.image.height}
 							className="rounded-lg"
+							placeholder="blur"
+							blurDataURL={image.thumbnails[0].small.url}
 						/>
 					</div>
 				))}
