@@ -75,7 +75,18 @@ export default function ProjectsPage() {
 		);
 	}
 
-	if (!data) return <div></div>;
+	if (!data) {
+		return (
+			<>
+				<div className="w-full text-center mt-24">
+					<h1 className="relative font-metropolis-bold text-text-lighter text-xl w-auto">
+						Loading pictures...
+					</h1>
+					<p className="text-text-color font-metropolis">They're cool. I swear.</p>
+				</div>
+			</>
+		);
+	}
 
 	if (data.status !== 200) {
 		return (
