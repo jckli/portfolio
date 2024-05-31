@@ -17,8 +17,8 @@ export const Navbar = (props: any) => {
 
 	return (
 		<>
-			<div className="flex-grow py-2 px-2 border-[1p] border-borcol rounded-xl">
-				<NavigationMenu className="overflow-x-auto">
+			<div className="flex-grow py-2 px-2 border-[1px] border-borcol rounded-xl">
+				<NavigationMenu>
 					<NavigationMenuList className="text-text-color font-metropolis-bold">
 						<NavigationMenuItem>
 							<Link href="/" legacyBehavior passHref>
